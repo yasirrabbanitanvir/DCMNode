@@ -1,0 +1,11 @@
+pyinstaller --onefile --windowed --noupx --name "Telerad PACS Server" pacs_server.py
+
+pyinstaller --onefile --windowed --noupx --icon="C:\Users\afsar\OneDrive\Desktop\PACS Server3\telesoftlogo.ico" --name "Telerad PACS Server" main.py
+
+
+
+netstat -ano | find "11112"
+
+taskkill /PID  1260 /F
+
+

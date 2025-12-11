@@ -1,0 +1,29 @@
+netsh advfirewall firewall add rule name="DICOM Receiver" dir=in action=allow protocol=TCP localport=22222
+
+
+python -m http.server 8080
+
+https://canyouseeme.org/
+
+
+for /f "tokens=5" %a in ('netstat -ano ^| findstr :11112 ^| findstr LISTENING') do @taskkill /F /PID %a
+
+netsh advfirewall firewall add rule name="DICOM Server" dir=in action=allow protocol=TCP localport=11112
+
+netsh advfirewall firewall add rule name="DICOM Server Out" dir=out action=allow protocol=TCP localport=11112
+
+
+
+# Port 11112 এর process খুঁজুন এবং kill করুন
+$port = 11112
+Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue | ForEach-Object {
+    Stop-Process -Id $_.OwningProcess -Force
+    Write-Host "Killed process $($_.OwningProcess) using port $port"
+}
+
+
+
+
+netstat -ano | find "11112"
+
+taskkill /PID  16904 /F
